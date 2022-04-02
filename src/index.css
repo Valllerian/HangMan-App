@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Coming+Soon");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   padding: 0;
