@@ -31,7 +31,7 @@
   margin-top: 0;
 }
 
-.Hangman button {
+.button-letter{
   border: none;
   font-family: inherit;
   font-size: 1rem;
@@ -45,6 +45,10 @@
   box-shadow: 0 6px #ff9800;
   border-radius: 5px;
   padding-top: 4px;
+}
+
+.game {
+  box-shadow: 0 6px #ff9800;
 }
 
 .Hangman button:hover {
