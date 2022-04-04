@@ -9,56 +9,66 @@ import img5 from "../assets/5.jpg";
 import img6 from "../assets/6.jpg";
 
 const Hangman = () => {
-  const [maxWrong, setMaxWrong] = useState(6)
-  const [images, setImages] = useState([img0, img1, img2, img3, img4, img5, img6])
-  const [answer, setAnswer] = useState('apple')
-  const [currentWrong, setCurrentWrong] = useState(0)
-  const [guessed, setGuessed] = useState('')
+  const [maxWrong, setMaxWrong] = useState(6);
+  const [images, setImages] = useState([
+    img0,
+    img1,
+    img2,
+    img3,
+    img4,
+    img5,
+    img6,
+  ]);
+  const [answer, setAnswer] = useState("apple");
+  const [currentWrong, setCurrentWrong] = useState(0);
+  const [guessed, setGuessed] = useState("");
 
-//   /** guessedWord: show current-state of word:
-//     if guessed letters are {a,p,e}, show "app_e" for "apple"
-//   */
- const guessedWord = () => {
+  //   /** guessedWord: show current-state of word:
+  //     if guessed letters are {a,p,e}, show "app_e" for "apple"
+  //   */
+  const guessedWord = () => {
     // return answer
     //   .split("")
     //   .map(ltr => (this.state.guessed.has(ltr) ? ltr : "_"));
-  }
+  };
 
   /** handleGuest: handle a guessed letter:
     - add to guessed letters
     - if not in answer, increase number-wrong guesses
   */
-  const handleGuess = (evt) => {
-    // let ltr = evt.target.value;
+  const handleGuess = (e) => {
+    let ltr = e.target.value;
+    console.log(ltr);
     // this.setState(st => ({
     //   guessed: st.guessed.add(ltr),
     //   nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1)
     // }));
-  }
+  };
 
   /** generateButtons: return array of letter buttons to render */
   const generateButtons = () => {
-    return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
+    return "abcdefghijklmnopqrstuvwxyz".split("").map((ltr) => (
       <button
+        key={ltr}
         value={ltr}
-        onClick={handleGuess}
+        onClick={(e) => handleGuess(e)}
         disabled={guessed.includes(ltr)}
       >
         {ltr}
       </button>
     ));
-  }
+  };
 
   /** render: render game */
- 
-    return (
-      <div className='Hangman'>
-        <h1>Hangman</h1>
-        <img src={images[currentWrong]} />
-        <p className='Hangman-word'>{guessedWord()}</p>
-        <p className='Hangman-btns'>{generateButtons()}</p>
-      </div>
-    );
-}
+
+  return (
+    <div className="Hangman">
+      <h1>Hangman</h1>
+      <img src={images[currentWrong]} />
+      <p className="Hangman-word">{guessedWord()}</p>
+      <p className="Hangman-btns">{generateButtons()}</p>
+    </div>
+  );
+};
 
 export default Hangman;
