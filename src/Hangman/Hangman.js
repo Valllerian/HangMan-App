@@ -88,19 +88,27 @@ const Hangman = () => {
   const restart = () => {
     setAnswer(ENGLISH_WORDS[Math.floor(Math.random() * ENGLISH_WORDS.length)]);
     setGuessed([]);
-    setCurrentWrong(0)
-    setWinner(false)
-  }
+    setCurrentWrong(0);
+    setWinner(false);
+  };
 
   return (
-    <div className="Hangman">
+    <div className="Hangman ">
       <h1>Hangman</h1>
-      <img src={images[currentWrong]} />
+      <div className="flex justify-center">
+      <img src={images[currentWrong]} className=""/>
+      </div>
+      
       <p className="Hangman-word ">{guessedWord()}</p>
       <p className="Hangman-btns">{generateButtons()}</p>
       <div className="mt-6">
         {" "}
-        <button className="p-3 bg-[#ffc107] text-white game"   onClick={(e) => restart(e)}>New Game</button>
+        <button
+          className="p-3 bg-[#ffc107] text-white game"
+          onClick={(e) => restart(e)}
+        >
+          New Game
+        </button>
       </div>
     </div>
   );
