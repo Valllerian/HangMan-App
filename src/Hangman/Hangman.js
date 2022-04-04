@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Hangman.css";
 import img0 from "../assets/0.jpg";
 import img1 from "../assets/1.jpg";
@@ -23,13 +23,16 @@ const Hangman = () => {
   const [currentWrong, setCurrentWrong] = useState(0);
   const [guessed, setGuessed] = useState([]);
 
+  // useEffect(() => {
+  //   guessedWord()
+  //   console.log('effect')
+  // }, [guessed])
+
   //   /** guessedWord: show current-state of word:
   //     if guessed letters are {a,p,e}, show "app_e" for "apple"
   //   */
   const guessedWord = () => {
-    return answer
-      .split("")
-      .map(ltr => (guessed.includes(ltr) ? ltr : "_"));
+    return answer.split("").map((ltr) => (guessed.includes(ltr) ? ltr : "_"));
   };
 
   /** handleGuest: handle a guessed letter:
@@ -38,9 +41,14 @@ const Hangman = () => {
   */
   const handleGuess = (e) => {
     let ltr = e.target.value;
-    
-    guessed.push(ltr)
+
+    guessed.push(ltr);
     console.log(guessed);
+    if (answer.includes(ltr)) {
+  
+    } else {
+      setCurrentWrong(currentWrong + 1);
+    }
     // this.setState(st => ({
     //   guessed: st.guessed.add(ltr),
     //   nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1)
@@ -54,14 +62,13 @@ const Hangman = () => {
         key={ltr}
         value={ltr}
         onClick={(e) => handleGuess(e)}
-        disabled={guessed.includes(ltr)}
+        disabled={guessed.includes(ltr) || currentWrong === maxWrong}
       >
         {ltr}
       </button>
     ));
   };
 
-  /** render: render game */
 
   return (
     <div className="Hangman">
