@@ -7,6 +7,7 @@ import img3 from "../assets/3.jpg";
 import img4 from "../assets/4.jpg";
 import img5 from "../assets/5.jpg";
 import img6 from "../assets/6.jpg";
+import ENGLISH_WORDS from './words.js'
 
 const Hangman = () => {
   const [maxWrong, setMaxWrong] = useState(6);
@@ -19,21 +20,34 @@ const Hangman = () => {
     img5,
     img6,
   ]);
-  const [answer, setAnswer] = useState("apple");
+  const [answer, setAnswer] = useState();
   const [currentWrong, setCurrentWrong] = useState(0);
   const [guessed, setGuessed] = useState([]);
+const [winner, setWinner] = useState(false)
 
-  // useEffect(() => {
-  //   guessedWord()
-  //   console.log('effect')
-  // }, [guessed])
+
+useEffect(() => {
+  setAnswer(ENGLISH_WORDS[Math.floor(Math.random() * ENGLISH_WORDS.length)])
+}, [])
+
+
 
   //   /** guessedWord: show current-state of word:
   //     if guessed letters are {a,p,e}, show "app_e" for "apple"
   //   */
   const guessedWord = () => {
-    return answer.split("").map((ltr) => (guessed.includes(ltr) ? ltr : "_"));
+    return answer ? answer.split("").map((ltr) => (guessed.includes(ltr) ? ltr : "_")) : null;
   };
+
+  const winCheck = () => {
+    let win = answer ? answer.split("").map((ltr) => (guessed.includes(ltr) ? ltr : false)) : false
+    if(win.includes(false)){
+      return false
+    } else {
+      return true;
+    }
+    
+  }
 
   /** handleGuest: handle a guessed letter:
     - add to guessed letters
@@ -41,12 +55,16 @@ const Hangman = () => {
   */
   const handleGuess = (e) => {
     let ltr = e.target.value;
-
-    guessed.push(ltr);
-    console.log(guessed);
+    console.log(answer)
+    if(winCheck() === true){
+      console.log('win')
+      setWinner(true)
+    }
     if (answer.includes(ltr)) {
-  
+      guessed.push(ltr);
+      
     } else {
+      guessed.push(ltr);
       setCurrentWrong(currentWrong + 1);
     }
     // this.setState(st => ({
@@ -62,13 +80,12 @@ const Hangman = () => {
         key={ltr}
         value={ltr}
         onClick={(e) => handleGuess(e)}
-        disabled={guessed.includes(ltr) || currentWrong === maxWrong}
+        disabled={guessed.includes(ltr) || currentWrong === maxWrong || winner === true}
       >
         {ltr}
       </button>
     ));
   };
-
 
   return (
     <div className="Hangman">
