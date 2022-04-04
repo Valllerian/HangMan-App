@@ -96,7 +96,7 @@ const Hangman = () => {
     <div className="Hangman ">
       <h1>Hangman</h1>
       <div className="flex justify-center">
-      <img src={images[currentWrong]} className=""/>
+      <img src={images[currentWrong]} className="" alt={`Hangman image. ${currentWrong} attempts out of ${maxWrong} is used`}/>
       </div>
       
       <p className="Hangman-word ">{guessedWord()}</p>
