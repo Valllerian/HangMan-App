@@ -21,15 +21,15 @@ const Hangman = () => {
   ]);
   const [answer, setAnswer] = useState("apple");
   const [currentWrong, setCurrentWrong] = useState(0);
-  const [guessed, setGuessed] = useState("");
+  const [guessed, setGuessed] = useState([]);
 
   //   /** guessedWord: show current-state of word:
   //     if guessed letters are {a,p,e}, show "app_e" for "apple"
   //   */
   const guessedWord = () => {
-    // return answer
-    //   .split("")
-    //   .map(ltr => (this.state.guessed.has(ltr) ? ltr : "_"));
+    return answer
+      .split("")
+      .map(ltr => (guessed.includes(ltr) ? ltr : "_"));
   };
 
   /** handleGuest: handle a guessed letter:
@@ -38,7 +38,9 @@ const Hangman = () => {
   */
   const handleGuess = (e) => {
     let ltr = e.target.value;
-    console.log(ltr);
+    
+    guessed.push(ltr)
+    console.log(guessed);
     // this.setState(st => ({
     //   guessed: st.guessed.add(ltr),
     //   nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1)
